@@ -12,7 +12,7 @@ class Enemy:
         self.image = image
         self.width = width
         self.height = height
-        self.x = s 
+        self.x = x
         self.y = y
         self.surface = pygame.image.load(image)
         self.surface = pygame.transform.scale(self.surface, (self.width, self.height))
@@ -22,3 +22,12 @@ class Enemy:
         self.rect.center = (self.x, self.y)
         screen.blit(self.surface,self.rect)
     
+    def follow(self, player, speed=2):
+        dx = player.x - self.x
+        dy = player.y - self.y
+        distance = (dx**2 + dy**2) ** 0.5
+        if distance > 0:
+            dx /=distance
+            dy /=distance
+        self.x += dx * speed
+        self.y += dy * speed

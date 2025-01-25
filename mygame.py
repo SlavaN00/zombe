@@ -2,7 +2,7 @@
 import pygame
 from random import randint as rd
 from player import Player
-
+from enemy import Enemy
 # РАЗМЕРЫ ОКОШКА
 WIDTH = 500
 HEIGHT = 300
@@ -23,8 +23,8 @@ pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
 
 
-player = Player("./capibara.png",100,120, 200,200)
-
+player = Player("./тагилла.png",150,120, 200,200)
+zombie = Enemy('./guy.jpg',10,40, 500,300)
 x = 0
 # Цикл игры
 running = True
@@ -33,21 +33,14 @@ while running:
     screen.fill(WHITE)
     pygame.draw.rect(screen, GREEN,(x,200,50,20))
     player.draw(screen)
+    zombie.draw(screen)
+    zombie.follow(player, speed=0.5)
     if x >= WIDTH+20:
         x = -70
     # Держим цикл на правильной скорости
-    clock.tick(FPS)
+    player.movement()
 
-    # Управление 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_d]:
-        player.x +=  1
-    elif keys[pygame.K_a]:
-        player.x -= 1
-    if keys[pygame.K_w]:
-        player.y -= 1
-    elif keys[pygame.K_s]:
-       player.y += 1
+    
 
     pygame.display.update()
     # Ввод процесса (события)
@@ -55,7 +48,7 @@ while running:
         # check for closing window
         if event.type == pygame.QUIT:
             running = False
-    
+    clock.tick(FPS)
 pygame.quit()
 
 
