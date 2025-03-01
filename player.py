@@ -9,6 +9,7 @@ class Player:
     speed=2
     surface = ""
     rect = ""
+    hp = 100
 
     def __init__(self, image, width=50,height=50, x=100,y=100):
         self.image = image

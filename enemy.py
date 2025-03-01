@@ -1,5 +1,5 @@
 import pygame
-class Enemy:
+class Enemy(pygame.sprite.Sprite):
     width = 50
     height = 50
     x = 100
@@ -9,6 +9,7 @@ class Enemy:
     rect = ""
 
     def __init__(self, image, width=50,height=50, x=100,y=100):
+        super().__init__()
         self.image = image
         self.width = width
         self.height = height

@@ -26,6 +26,17 @@ clock = pygame.time.Clock()
 player = Player("./тагилла.png",150,120, 200,200)
 zombie = Enemy('./guy.jpg',10,40, 500,300)
 x = 0
+enemyGroup = pygame.sprite.Group()
+def spawnEnemy():
+    enemy = Enemy('./guy.jpg',width=rd(20,50))
+    enemyGroup.add(enemy)
+
+
+
+
+
+
+
 # Цикл игры
 running = True
 while running:
@@ -38,9 +49,32 @@ while running:
     if x >= WIDTH+20:
         x = -70
     # Держим цикл на правильной скорости
+
+
+
+
+
     player.movement()
 
-    
+    for enemy in enemyGroup:
+        enemyGroup.draw(screen)
+        enemy.follow(player,1)
+
+
+
+    if pygame.sprite.spritecollideany(player,enemyGroup):
+        print('грызут')
+        player.hp -= 1
+        if player.hp <= 0:
+            print('побег не успешен')
+            running = False
+
+
+
+
+
+
+
 
     pygame.display.update()
     # Ввод процесса (события)
